@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block title %}Completed Tasks{% endblock %}
+
+{% block content %}
+  <h2>Completed Tasks</h2>
+  <div class="table-responsive">
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>Task Title</th>
+          <th>Task Description</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for task in completed_tasks %}
+          <tr>
+            <td>{{ task.taskTitle }}</td>
+            <td>{{ task.taskDescription }}</td>
+            <td>
+              <form action="{% url 'delete_task' task.pk %}" method="post">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+              </form>
+            </td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+{% endblock %}
